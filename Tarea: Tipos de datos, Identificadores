@@ -1,0 +1,59 @@
+Programa para calcular el área y el perímetro de un rectángulo.
+
+Funcionalidad:
+- Solicita al usuario ingresar las dimensiones de un rectángulo (base y altura).
+- Calcula el área y el perímetro utilizando fórmulas matemáticas.
+- Verifica si el rectángulo es un cuadrado y muestra un mensaje adicional.
+- Incluye el uso de diferentes tipos de datos (int, float, string, boolean).
+
+Autor: [Tu Nombre]
+Fecha: [Fecha de desarrollo]
+"""
+
+# Función para calcular el área del rectángulo
+def calcular_area(base, altura):
+    """
+    Calcula el área de un rectángulo.
+    :param base: Base del rectángulo (float).
+    :param altura: Altura del rectángulo (float).
+    :return: Área del rectángulo (float).
+    """
+    return base * altura
+
+# Función para calcular el perímetro del rectángulo
+def calcular_perimetro(base, altura):
+    """
+    Calcula el perímetro de un rectángulo.
+    :param base: Base del rectángulo (float).
+    :param altura: Altura del rectángulo (float).
+    :return: Perímetro del rectángulo (float).
+    """
+    return 2 * (base + altura)
+
+# Función principal
+def main():
+    print("=== Cálculo del Área y Perímetro de un Rectángulo ===")
+
+    # Solicitar dimensiones al usuario
+    base = float(input("Ingresa la base del rectángulo (en unidades): "))
+    altura = float(input("Ingresa la altura del rectángulo (en unidades): "))
+
+    # Calcular área y perímetro
+    area = calcular_area(base, altura)
+    perimetro = calcular_perimetro(base, altura)
+
+    # Mostrar resultados
+    print(f"\nResultados:")
+    print(f"Área: {area:.2f} unidades cuadradas")
+    print(f"Perímetro: {perimetro:.2f} unidades")
+
+    # Verificar si es un cuadrado
+    es_cuadrado = base == altura  # Tipo de dato boolean
+    if es_cuadrado:
+        print("Nota: El rectángulo es un cuadrado porque la base y la altura son iguales.")
+    else:
+        print("Nota: El rectángulo no es un cuadrado.")
+
+# Ejecución del programa
+if __name__ == "__main__":
+    main()
