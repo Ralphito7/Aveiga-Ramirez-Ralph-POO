@@ -1,0 +1,96 @@
+"""
+Sistema de Vehículos utilizando POO en Python.
+
+Características:
+- Demuestra el concepto de herencia mediante una clase base "Vehiculo" y clases derivadas "Automovil" y "Motocicleta".
+- Implementa encapsulación al proteger atributos de la clase base.
+- Presenta polimorfismo a través de métodos sobrescritos en las clases derivadas.
+
+Autor: [Tu Nombre]
+Fecha: [Fecha de desarrollo]
+"""
+
+class Vehiculo:
+    """
+    Clase base que representa un vehículo genérico.
+    """
+    def __init__(self, marca, modelo, anio):
+        self._marca = marca       # Atributo protegido
+        self._modelo = modelo     # Atributo protegido
+        self._anio = anio         # Atributo protegido
+
+    def mostrar_informacion(self):
+        """
+        Muestra la información básica del vehículo.
+        """
+        return f"Marca: {self._marca}, Modelo: {self._modelo}, Año: {self._anio}"
+
+    def encender(self):
+        """
+        Método genérico para encender el vehículo.
+        """
+        return f"El {self._modelo} está encendido."
+
+
+class Automovil(Vehiculo):
+    """
+    Clase derivada que representa un automóvil.
+    """
+    def __init__(self, marca, modelo, anio, puertas):
+        super().__init__(marca, modelo, anio)
+        self._puertas = puertas  # Atributo adicional específico del automóvil
+
+    def mostrar_informacion(self):
+        """
+        Sobrescribe el método de la clase base para incluir información adicional.
+        """
+        info_base = super().mostrar_informacion()
+        return f"{info_base}, Puertas: {self._puertas}"
+
+    def encender(self):
+        """
+        Sobrescribe el método para personalizar la acción de encender.
+        """
+        return f"El automóvil {self._modelo} está encendido y listo para conducir."
+
+
+class Motocicleta(Vehiculo):
+    """
+    Clase derivada que representa una motocicleta.
+    """
+    def __init__(self, marca, modelo, anio, tipo):
+        super().__init__(marca, modelo, anio)
+        self._tipo = tipo  # Atributo adicional específico de la motocicleta
+
+    def mostrar_informacion(self):
+        """
+        Sobrescribe el método de la clase base para incluir información adicional.
+        """
+        info_base = super().mostrar_informacion()
+        return f"{info_base}, Tipo: {self._tipo}"
+
+    def encender(self):
+        """
+        Sobrescribe el método para personalizar la acción de encender.
+        """
+        return f"La motocicleta {self._modelo} está encendida y lista para rodar."
+
+
+# Función principal
+def main():
+    # Crear instancias de Automovil y Motocicleta
+    auto = Automovil("Toyota", "Corolla", 2021, 4)
+    moto = Motocicleta("Yamaha", "MT-07", 2022, "Deportiva")
+
+    # Demostrar funcionalidad
+    print("=== Información de los Vehículos ===")
+    print(auto.mostrar_informacion())
+    print(moto.mostrar_informacion())
+
+    print("\n=== Encendido de los Vehículos ===")
+    print(auto.encender())
+    print(moto.encender())
+
+
+if __name__ == "__main__":
+    main()
