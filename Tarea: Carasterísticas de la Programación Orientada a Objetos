@@ -1,0 +1,126 @@
+Clonar tu repositorio de GitHub:
+
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_REPOSITORIO>
+
+Crear el directorio "EjemplosMundoReal_POO":
+
+    mkdir EjemplosMundoReal_POO
+    cd EjemplosMundoReal_POO
+
+    Desarrollar el programa basado en POO:
+        Elige un contexto del mundo real.
+        Define clases, atributos y métodos que representen el sistema.
+
+Ejemplo: Sistema de Reservas de Habitaciones de Hotel
+
+Este ejemplo demuestra cómo usar POO para modelar un sistema de reservas.
+
+class Habitacion:
+    def __init__(self, numero, tipo, precio):
+        """
+        Clase que representa una habitación de hotel.
+        :param numero: Número de la habitación.
+        :param tipo: Tipo de la habitación (e.g., 'Sencilla', 'Doble').
+        :param precio: Precio por noche.
+        """
+        self.numero = numero
+        self.tipo = tipo
+        self.precio = precio
+        self.ocupada = False
+
+    def reservar(self):
+        """
+        Marca la habitación como ocupada.
+        """
+        if self.ocupada:
+            print(f"⚠️ La habitación {self.numero} ya está reservada.")
+        else:
+            self.ocupada = True
+            print(f"✅ Habitación {self.numero} reservada con éxito.")
+
+    def liberar(self):
+        """
+        Marca la habitación como disponible.
+        """
+        if not self.ocupada:
+            print(f"⚠️ La habitación {self.numero} ya está libre.")
+        else:
+            self.ocupada = False
+            print(f"✅ Habitación {self.numero} liberada con éxito.")
+
+
+class Hotel:
+    def __init__(self, nombre):
+        """
+        Clase que representa un hotel.
+        :param nombre: Nombre del hotel.
+        """
+        self.nombre = nombre
+        self.habitaciones = []
+
+    def agregar_habitacion(self, habitacion):
+        """
+        Agrega una habitación al hotel.
+        :param habitacion: Objeto de tipo Habitacion.
+        """
+        self.habitaciones.append(habitacion)
+
+    def mostrar_habitaciones_disponibles(self):
+        """
+        Muestra las habitaciones que están disponibles para reservar.
+        """
+        print(f"🏨 Habitaciones disponibles en {self.nombre}:")
+        disponibles = [hab for hab in self.habitaciones if not hab.ocupada]
+        if disponibles:
+            for hab in disponibles:
+                print(f"- Habitación {hab.numero} ({hab.tipo}) - ${hab.precio:.2f} por noche")
+        else:
+            print("No hay habitaciones disponibles.")
+
+    def buscar_habitacion_por_numero(self, numero):
+        """
+        Busca una habitación por su número.
+        :param numero: Número de la habitación.
+        :return: Objeto de tipo Habitacion o None si no existe.
+        """
+        for habitacion in self.habitaciones:
+            if habitacion.numero == numero:
+                return habitacion
+        print(f"⚠️ No se encontró la habitación {numero}.")
+        return None
+
+
+# Ejemplo de uso
+def main():
+    # Crear un hotel
+    hotel = Hotel("Hotel Paraíso")
+
+    # Agregar habitaciones
+    hotel.agregar_habitacion(Habitacion(101, "Sencilla", 50.0))
+    hotel.agregar_habitacion(Habitacion(102, "Doble", 80.0))
+    hotel.agregar_habitacion(Habitacion(103, "Suite", 150.0))
+
+    # Mostrar habitaciones disponibles
+    hotel.mostrar_habitaciones_disponibles()
+
+    # Reservar una habitación
+    habitacion = hotel.buscar_habitacion_por_numero(102)
+    if habitacion:
+        habitacion.reservar()
+
+    # Intentar reservar una habitación ya ocupada
+    habitacion.reservar()
+
+    # Mostrar habitaciones disponibles nuevamente
+    hotel.mostrar_habitaciones_disponibles()
+
+    # Liberar la habitación
+    habitacion.liberar()
+
+    # Mostrar habitaciones disponibles después de liberar
+    hotel.mostrar_habitaciones_disponibles()
+
+
+if __name__ == "__main__":
+    main()
