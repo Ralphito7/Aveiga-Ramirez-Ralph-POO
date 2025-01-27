@@ -1,19 +1,8 @@
-Programa para calcular el área y el perímetro de un rectángulo.
-
-Funcionalidad:
-- Solicita al usuario ingresar las dimensiones de un rectángulo (base y altura).
-- Calcula el área y el perímetro utilizando fórmulas matemáticas.
-- Verifica si el rectángulo es un cuadrado y muestra un mensaje adicional.
-- Incluye el uso de diferentes tipos de datos (int, float, string, boolean).
-
-Autor: [Tu Nombre]
-Fecha: [Fecha de desarrollo]
-"""
 
 # Función para calcular el área del rectángulo
 def calcular_area(base, altura):
     """
-    Calcula el área de un rectángulo.
+    # Calcula el área de un rectángulo.
     :param base: Base del rectángulo (float).
     :param altura: Altura del rectángulo (float).
     :return: Área del rectángulo (float).
@@ -23,7 +12,7 @@ def calcular_area(base, altura):
 # Función para calcular el perímetro del rectángulo
 def calcular_perimetro(base, altura):
     """
-    Calcula el perímetro de un rectángulo.
+    # Calcula el perímetro de un rectángulo.
     :param base: Base del rectángulo (float).
     :param altura: Altura del rectángulo (float).
     :return: Perímetro del rectángulo (float).
