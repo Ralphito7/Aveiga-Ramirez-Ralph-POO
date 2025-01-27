@@ -1,20 +1,4 @@
-Clonar tu repositorio de GitHub:
 
-git clone <URL_DEL_REPOSITORIO>
-cd <NOMBRE_DEL_REPOSITORIO>
-
-Crear el directorio "EjemplosMundoReal_POO":
-
-    mkdir EjemplosMundoReal_POO
-    cd EjemplosMundoReal_POO
-
-    Desarrollar el programa basado en POO:
-        Elige un contexto del mundo real.
-        Define clases, atributos y métodos que representen el sistema.
-
-Ejemplo: Sistema de Reservas de Habitaciones de Hotel
-
-Este ejemplo demuestra cómo usar POO para modelar un sistema de reservas.
 
 class Habitacion:
     def __init__(self, numero, tipo, precio):
