@@ -62,8 +62,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-Características:
-
-    Uso de una clase (ClimaSemanal) para encapsular datos y métodos relacionados.
-    Métodos para interactuar con los datos (ingresar temperaturas y calcular promedio).
-    Posibilidad de extender la clase para nuevas funcionalidades en el futuro.
