@@ -1,14 +1,4 @@
-"""
-Sistema de Vehículos utilizando POO en Python.
 
-Características:
-- Demuestra el concepto de herencia mediante una clase base "Vehiculo" y clases derivadas "Automovil" y "Motocicleta".
-- Implementa encapsulación al proteger atributos de la clase base.
-- Presenta polimorfismo a través de métodos sobrescritos en las clases derivadas.
-
-Autor: [Tu Nombre]
-Fecha: [Fecha de desarrollo]
-"""
 
 class Vehiculo:
     """
