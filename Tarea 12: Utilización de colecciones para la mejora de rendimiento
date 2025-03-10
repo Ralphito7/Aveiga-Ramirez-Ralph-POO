@@ -1,0 +1,143 @@
+class Libro:
+    def __init__(self, titulo, autor, categoria, isbn):
+        self.datos = (titulo, autor)  # Tupla para título y autor (inmutables)
+        self.categoria = categoria
+        self.isbn = isbn
+
+    def __str__(self):
+        return f"Título: {self.datos[0]}, Autor: {self.datos[1]}, Categoría: {self.categoria}, ISBN: {self.isbn}"
+
+
+class Usuario:
+    def __init__(self, nombre, id_usuario):
+        self.nombre = nombre
+        self.id_usuario = id_usuario
+        self.libros_prestados = []  # Lista de libros prestados al usuario
+
+    def __str__(self):
+        return f"Usuario: {self.nombre}, ID: {self.id_usuario}, Libros Prestados: {len(self.libros_prestados)}"
+
+
+class Biblioteca:
+    def __init__(self):
+        self.libros_disponibles = {}  # Diccionario: ISBN -> Libro
+        self.usuarios_registrados = set()  # Conjunto de IDs de usuarios
+        self.prestamos = []  # Lista de préstamos (historial)
+
+    def añadir_libro(self, libro):
+        """Añade un libro a la biblioteca."""
+        if libro.isbn in self.libros_disponibles:
+            print(f"El libro con ISBN {libro.isbn} ya existe en la biblioteca.")
+        else:
+            self.libros_disponibles[libro.isbn] = libro
+            print(f"Libro añadido: {libro}")
+
+    def quitar_libro(self, isbn):
+        """Elimina un libro de la biblioteca."""
+        if isbn in self.libros_disponibles:
+            del self.libros_disponibles[isbn]
+            print(f"Libro con ISBN {isbn} eliminado.")
+        else:
+            print(f"El libro con ISBN {isbn} no existe en la biblioteca.")
+
+    def registrar_usuario(self, usuario):
+        """Registra un nuevo usuario."""
+        if usuario.id_usuario in self.usuarios_registrados:
+            print(f"El usuario con ID {usuario.id_usuario} ya está registrado.")
+        else:
+            self.usuarios_registrados.add(usuario.id_usuario)
+            print(f"Usuario registrado: {usuario}")
+
+    def dar_de_baja_usuario(self, id_usuario):
+        """Da de baja a un usuario."""
+        if id_usuario in self.usuarios_registrados:
+            self.usuarios_registrados.remove(id_usuario)
+            print(f"Usuario con ID {id_usuario} dado de baja.")
+        else:
+            print(f"El usuario con ID {id_usuario} no está registrado.")
+
+    def prestar_libro(self, isbn, id_usuario):
+        """Presta un libro a un usuario."""
+        if isbn not in self.libros_disponibles:
+            print(f"El libro con ISBN {isbn} no está disponible.")
+            return
+        if id_usuario not in self.usuarios_registrados:
+            print(f"El usuario con ID {id_usuario} no está registrado.")
+            return
+
+        libro = self.libros_disponibles[isbn]
+        for usuario in self.prestamos:
+            if usuario.id_usuario == id_usuario:
+                usuario.libros_prestados.append(libro)
+                self.prestamos.append((id_usuario, isbn))
+                print(f"Libro prestado: {libro} a Usuario ID: {id_usuario}")
+                return
+
+    def devolver_libro(self, isbn, id_usuario):
+        """Devuelve un libro prestado."""
+        for usuario in self.prestamos:
+            if usuario.id_usuario == id_usuario:
+                for libro in usuario.libros_prestados:
+                    if libro.isbn == isbn:
+                        usuario.libros_prestados.remove(libro)
+                        self.prestamos.remove((id_usuario, isbn))
+                        print(f"Libro devuelto: {libro} por Usuario ID: {id_usuario}")
+                        return
+        print(f"No se encontró el libro con ISBN {isbn} prestado al usuario con ID {id_usuario}.")
+
+    def buscar_libros(self, criterio, valor):
+        """Busca libros por título, autor o categoría."""
+        resultados = []
+        for libro in self.libros_disponibles.values():
+            if criterio == "titulo" and valor.lower() in libro.datos[0].lower():
+                resultados.append(libro)
+            elif criterio == "autor" and valor.lower() in libro.datos[1].lower():
+                resultados.append(libro)
+            elif criterio == "categoria" and valor.lower() == libro.categoria.lower():
+                resultados.append(libro)
+        return resultados
+
+    def listar_libros_prestados(self, id_usuario):
+        """Lista los libros prestados a un usuario."""
+        for usuario in self.prestamos:
+            if usuario.id_usuario == id_usuario:
+                return usuario.libros_prestados
+        return []
+
+
+# Pruebas del sistema
+if __name__ == "__main__":
+    # Crear una biblioteca
+    biblioteca = Biblioteca()
+
+    # Añadir libros
+    libro1 = Libro("Cien años de soledad", "Gabriel García Márquez", "Novela", "978-0307350487")
+    libro2 = Libro("1984", "George Orwell", "Ciencia Ficción", "978-0451524935")
+    biblioteca.añadir_libro(libro1)
+    biblioteca.añadir_libro(libro2)
+
+    # Registrar usuarios
+    usuario1 = Usuario("Juan Pérez", 1)
+    usuario2 = Usuario("Ana Gómez", 2)
+    biblioteca.registrar_usuario(usuario1)
+    biblioteca.registrar_usuario(usuario2)
+
+    # Prestar libros
+    biblioteca.prestar_libro("978-0307350487", 1)
+    biblioteca.prestar_libro("978-0451524935", 2)
+
+    # Buscar libros
+    print("\nBúsqueda por título '1984':")
+    for libro in biblioteca.buscar_libros("titulo", "1984"):
+        print(libro)
+
+    # Listar libros prestados
+    print("\nLibros prestados a Usuario ID 1:")
+    for libro in biblioteca.listar_libros_prestados(1):
+        print(libro)
+
+    # Devolver libros
+    biblioteca.devolver_libro("978-0307350487", 1)
+
+    # Dar de baja a un usuario
+    biblioteca.dar_de_baja_usuario(2)
